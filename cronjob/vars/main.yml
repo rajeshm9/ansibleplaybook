@@ -1,0 +1,4 @@
+---
+# vars file for cronjob
+API_KEY: RAJESH
+INSTALL_DIR: jobs

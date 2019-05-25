@@ -1,0 +1,30 @@
+---
+# tasks file for cronjob
+- name: Get users homedir
+  local_action: command echo ~
+  register: homedir
+- name: Create job directory
+  file: 
+    path: "{{ homedir.stdout }}/{{INSTALL_DIR}}"
+    state: directory
+- debug:
+   msg: Print {{ homedir.stdout }}
+- name : Copy Java jar to destination directory
+  copy: 
+    src: HW.jar
+    dest: "{{ homedir.stdout }}/{{INSTALL_DIR}}/HW.jar"
+    
+- name: copy cron script to home folder
+  template:
+    src: job.sh.j2
+    dest: "{{ homedir.stdout }}/{{INSTALL_DIR}}/job.sh"
+    mode: '0744'
+- name: Run Script
+  shell: "{{ homedir.stdout }}/{{INSTALL_DIR}}/job.sh"
+  ignore_errors: yes
+
+- name: create Cron job entry
+  cron: 
+    name: create scaning script entry
+    minute: "*"
+    job: "{{ homedir.stdout }}/{{INSTALL_DIR}}/job.sh"
