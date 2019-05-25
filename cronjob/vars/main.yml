@@ -1,4 +1,6 @@
 ---
 # vars file for cronjob
-API_KEY: RAJESH
+API_KEY: api_key
+API_ID : api_id
+CODE_URL : https://github.com/rajeshm9/ansibleplaybook/archive/master.zip
 INSTALL_DIR: jobs

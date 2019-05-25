@@ -1,4 +1,11 @@
+#!/bin/bash
 
 cd "{{ homedir.stdout }}/{{ INSTALL_DIR}}"
 echo {{API_KEY}} >> /tmp/`date +%Y%m%d`.log
 echo "java -jar HW.jar"
+
+wget -c {{CODE_URL}}
+FILE=`basename {{CODE_URL}}`
+
+echo "java -jar VeracodeJavaAPI.jar -vid {{API_ID}} -vkey {{API_KEY}} -action uploadfile -appid 541095 -filepath ${FILE}"
+echo "java -jar VeracodeJavaAPI.jar  -vid {{API_ID}} -vkey {{API_KEY}} -action beginprescan -appid 541095 -toplevel true"
